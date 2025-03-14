@@ -1,6 +1,6 @@
 package auth
 
-import ( fjasd;kfja; 
+import (
 	"errors"
 	"net/http"
 	"testing"
