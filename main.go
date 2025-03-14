@@ -97,7 +97,6 @@ func main() {
 	log.Fatal(srv.ListenAndServe())
 }
 
-
 func unused() {
 	// it does nothing
 	//
