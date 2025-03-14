@@ -8,10 +8,10 @@ import (
 
 func TestGetAPIKey(t *testing.T) {
 	tests := []struct {
-		name          string
-		headers       http.Header
-		expectKey     string
-		expectErr     error
+		name      string
+		headers   http.Header
+		expectKey string
+		expectErr error
 	}{
 		{
 			name:      "Valid API Key",
@@ -55,4 +55,3 @@ func TestGetAPIKey(t *testing.T) {
 		})
 	}
 }
-
