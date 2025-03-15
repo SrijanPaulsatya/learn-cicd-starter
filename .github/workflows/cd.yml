@@ -9,12 +9,17 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Go
         uses: actions/setup-go@v5
+
+      - name: 'Setup Goose'
+        run: go install github.com/pressly/goose/v3/cmd/goose@latest
 
       - name: Build app
         run: ./scripts/buildprod.sh
@@ -32,6 +37,9 @@ jobs:
 
       - name: 'Build Docker and Push to Artifact Registry'
         run: 'gcloud builds submit --tag us-central1-docker.pkg.dev/windy-nation-453803-e5/notely-ar-repo/notely:latest .'
+
+      - name: 'Migrate Database'
+        run: ./scripts/migrateup.sh
 
       - name: 'Deploy to Cloud Run'
         run: 'gcloud run deploy notely --image us-central1-docker.pkg.dev/windy-nation-453803-e5/notely-ar-repo/notely:latest --region us-central1 --allow-unauthenticated --project windy-nation-453803-e5 --max-instances=4'
