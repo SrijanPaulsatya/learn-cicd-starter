@@ -29,3 +29,6 @@ jobs:
 
       - name: 'Use gCloud CLI'
         run: 'gcloud info'
+
+      - name: 'Build Docker and Push to Artifact Registry'
+        run: 'gcloud builds submit --tag us-central1-docker.pkg.dev/windy-nation-453803-e5/notely -ar-repo/notely:latest .'
